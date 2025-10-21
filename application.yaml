@@ -9,9 +9,6 @@ spec:
     repoURL: "https://github.com/SergiiGoncharov13/goit-argo.git"
     path: "namespaces/application"  
     targetRevision: main
-    helm:
-      valueFiles:
-        - values/mlflow-values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: mlflow
