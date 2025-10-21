@@ -4,28 +4,24 @@ metadata:
   name: mlflow-postgres
   namespace: infra-tools
 spec:
-  destination:
-    namespace: application
-    server: https://kubernetes.default.svc
   project: default
   source:
-    repoURL: https://charts.bitnami.com/bitnami
-    chart: postgresql
-    targetRevision: 12.5.6
+    repoURL: "https://charts.bitnami.com/bitnami"
+    chart: "postgresql"
+    targetRevision: "15.2.2"
     helm:
-      valuesObject:
+      releaseName: "mlflow-postgres"
+      values: |
         auth:
           username: mlflow
           password: mlflowpass
           database: mlflow
-        primary:
-          persistence:
-            enabled: false
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: application
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-      - ServerSideApply=true
-      - SkipDryRunOnMissingResource=true

@@ -6,24 +6,21 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://community-charts.github.io/helm-charts
-    chart: mlflow
-    targetRevision: 1.6.2
+    repoURL: "https://community-charts.github.io/helm-charts"
+    chart: "mlflow"
+    targetRevision: "1.6.2"
     helm:
-      releaseName: mlflow
-      valuesObject:
+      releaseName: "mlflow"
+      values: |
         service:
           type: ClusterIP
           port: 5000
 
-
         auth:
           enabled: false
 
-
         postgresql:
           enabled: false
-
 
         extraEnvVars:
           AWS_ACCESS_KEY_ID: "minio"
@@ -32,23 +29,18 @@ spec:
           MLFLOW_BACKEND_STORE_URI: "postgresql://mlflow:mlflowpass@mlflow-postgres-postgresql.application.svc.cluster.local:5432/mlflow"
           MLFLOW_ARTIFACT_ROOT: "s3://mlflow-artifacts"
 
-
         extraArgs:
           backend-store-uri: "$(MLFLOW_BACKEND_STORE_URI)"
           default-artifact-root: "$(MLFLOW_ARTIFACT_ROOT)"
           host: "0.0.0.0"
           port: "5000"
-
-
   destination:
+    server: "https://kubernetes.default.svc"
     namespace: application
-    server: https://kubernetes.default.svc
-
-
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
       - ServerSideApply=true
-      - SkipDryRunOnMissingResource=true
+      - CreateNamespace=true
