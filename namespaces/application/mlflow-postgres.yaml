@@ -6,22 +6,20 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: "https://charts.bitnami.com/bitnami"
-    chart: "postgresql"
-    targetRevision: "15.2.2"
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: postgresql
+    targetRevision: 12.10.3
     helm:
-      releaseName: "mlflow-postgres"
       values: |
-        auth:
-          username: mlflow
-          password: mlflowpass
-          database: mlflow
+        postgresqlUsername: mlflow
+        postgresqlPassword: mlflowpass
+        postgresqlDatabase: mlflow
+        service:
+          type: ClusterIP
   destination:
-    server: "https://kubernetes.default.svc"
+    server: https://kubernetes.default.svc
     namespace: application
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-    syncOptions:
-      - CreateNamespace=true

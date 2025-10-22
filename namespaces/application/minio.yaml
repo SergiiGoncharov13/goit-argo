@@ -6,24 +6,19 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: "https://charts.bitnami.com/bitnami"
-    chart: "minio"
-    targetRevision: "14.7.16"
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: minio
+    targetRevision: 13.0.22
     helm:
-      releaseName: "minio"
       values: |
-        mode: standalone
-        rootUser: "minio"
-        rootPassword: "minio123"
-        defaultBuckets: "mlflow-artifacts"
+        accessKey: minio
+        secretKey: minio123
         service:
           type: ClusterIP
   destination:
-    server: "https://kubernetes.default.svc"
+    server: https://kubernetes.default.svc
     namespace: application
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
