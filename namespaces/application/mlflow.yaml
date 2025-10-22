@@ -5,14 +5,13 @@ metadata:
   namespace: infra-tools
 spec:
   project: default
-
   source:
-    repoURL: https://community-charts.github.io/helm-charts
-    chart: mlflow
-    targetRevision: 1.6.2  
+    repoURL: "https://community-charts.github.io/helm-charts"
+    chart: "mlflow"
+    targetRevision: "1.6.2"
     helm:
-      releaseName: mlflow
-      valuesObject:
+      releaseName: "mlflow"
+      values: |
         service:
           type: ClusterIP
           port: 5000
@@ -35,15 +34,13 @@ spec:
           default-artifact-root: "$(MLFLOW_ARTIFACT_ROOT)"
           host: "0.0.0.0"
           port: "5000"
-
   destination:
-    namespace: mlflow
-    server: https://kubernetes.default.svc
-
+    server: "https://kubernetes.default.svc"
+    namespace: application
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
       - ServerSideApply=true
-      - SkipDryRunOnMissingResource=true
+      - CreateNamespace=true

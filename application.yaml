@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: "https://github.com/SergiiGoncharov13/goit-argo.git"
-    path: "argocd/applications"
+    path: "argocd/applications/mlflow"
     targetRevision: main
   destination:
     server: "https://kubernetes.default.svc"
