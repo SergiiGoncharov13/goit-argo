@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: "https://github.com/SergiiGoncharov13/goit-argo.git"
-    path: "namespace/applications"
+    path: "namespaces/application"
     targetRevision: main
   destination:
     server: "https://kubernetes.default.svc"
