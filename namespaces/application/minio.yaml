@@ -16,7 +16,7 @@ spec:
       values: |
         image:
           repository: docker.io/bitnami/minio
-          tag: 2025.10.0
+          tag: latest
           pullPolicy: IfNotPresent
         auth:
           rootUser: minio
