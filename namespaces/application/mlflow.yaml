@@ -41,7 +41,7 @@ spec:
 
 
   destination:
-    namespace: application
+    namespace: infra-tools
     server: https://kubernetes.default.svc
 
 
