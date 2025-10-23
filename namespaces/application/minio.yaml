@@ -15,7 +15,7 @@ spec:
     helm:
       values: |
         image:
-          repository: bitnami/minio
+          repository: docker.io/bitnami/minio
           tag: 2025.10.0 
         auth:
           rootUser: minio
