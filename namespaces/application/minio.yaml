@@ -11,12 +11,13 @@ spec:
   source:
     repoURL: https://charts.bitnami.com/bitnami
     chart: minio
-    targetRevision: 13.7.2
+    targetRevision: 13.0.22
     helm:
       values: |
         image:
           repository: docker.io/bitnami/minio
-          tag: 2025.10.0 
+          tag: 2025.10.0
+          pullPolicy: IfNotPresent
         auth:
           rootUser: minio
           rootPassword: minio123
