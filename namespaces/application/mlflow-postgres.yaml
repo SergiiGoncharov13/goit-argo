@@ -18,7 +18,7 @@ spec:
           type: ClusterIP
   destination:
     server: https://kubernetes.default.svc
-    namespace: application
+    namespace: infra-tools
   syncPolicy:
     automated:
       prune: true
