@@ -2,22 +2,26 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: minio
-  namespace: infra-tools 
+  namespace: infra-tools
 spec:
+  project: default
   destination:
     namespace: application
     server: https://kubernetes.default.svc
-  project: default
   source:
     repoURL: https://charts.bitnami.com/bitnami
     chart: minio
     targetRevision: 13.0.22
     helm:
-      valuesObject:
+      values: |
+        image:
+          repository: bitnami/minio
+          tag: 2025.10.0 # use a valid public tag
         auth:
           rootUser: minio
           rootPassword: minio123
-        defaultBuckets: "mlflow-artifacts"
+        defaultBuckets:
+          - mlflow-artifacts
         service:
           type: ClusterIP
         persistence:
