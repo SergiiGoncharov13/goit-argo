@@ -16,7 +16,7 @@ spec:
           port: 9091
   destination:
     server: https://kubernetes.default.svc
-    namespace: monitoring
+    namespace: infra-tools
   syncPolicy:
     automated:
       prune: true
