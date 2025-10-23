@@ -15,8 +15,9 @@ spec:
     helm:
       values: |
         image:
-          registry: docker.io
-          repository: bitnami/minio
+          registry: quay.io
+          repository: minio/minio
+          tag: latest
           pullPolicy: IfNotPresent
         auth:
           rootUser: minio
