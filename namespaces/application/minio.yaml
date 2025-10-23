@@ -20,8 +20,7 @@ spec:
         auth:
           rootUser: minio
           rootPassword: minio123
-        defaultBuckets:
-          - mlflow-artifacts
+        defaultBuckets: "mlflow-artifacts"
         service:
           type: ClusterIP
         persistence:
