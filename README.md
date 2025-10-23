@@ -15,8 +15,8 @@ cd goit-argo
 ## Apply the ArgoCD Application:
 ```bash
 kubectl apply -f application.yaml
+kubectl get pods -n infra-tools
 kubectl get applications -n infra-tools
-kubectl get pods -n mlflow
 ```
 
 ## Apply the ArgoCD Application:
