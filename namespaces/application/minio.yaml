@@ -16,7 +16,7 @@ spec:
       values: |
         image:
           repository: bitnami/minio
-          tag: 2025.10.0 # use a valid public tag
+          tag: 2025.10.0 
         auth:
           rootUser: minio
           rootPassword: minio123
