@@ -14,6 +14,9 @@ spec:
     targetRevision: 13.7.2
     helm:
       valuesObject:
+        image:
+          pullSecrets:
+            - name: dockerhub-secret
         auth:
           rootUser: minio
           rootPassword: minio123

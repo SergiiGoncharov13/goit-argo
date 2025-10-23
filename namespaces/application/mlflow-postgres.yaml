@@ -14,6 +14,9 @@ spec:
     targetRevision: 12.5.6
     helm:
       valuesObject:
+        image:
+          pullSecrets:
+            - name: dockerhub-secret
         auth:
           username: mlflow
           password: mlflowpass
