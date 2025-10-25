@@ -16,7 +16,8 @@ spec:
           rootUser: minioadmin
           rootPassword: minioadmin
         image:
-          repository: docker.io/bitnami/minio
+          registry: docker.io
+          repository: bitnamilegacy/minio
           tag: 2025.9.30-debian-12-r0
         defaultBuckets: "mlflow-artifacts"
         persistence:

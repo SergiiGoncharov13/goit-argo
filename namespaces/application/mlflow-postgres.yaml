@@ -15,7 +15,7 @@ spec:
     helm:
       valuesObject:
         image:
-          repository: docker.io/bitnami/postgresql
+          repository: docker.io/bitnamilegacy/postgresql
         auth:
           username: mlflow
           password: mlflowpass
