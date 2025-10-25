@@ -15,8 +15,8 @@ spec:
     helm:
       valuesObject:
         image:
-          pullSecrets:
-            - name: dockerhub-secret
+          repository: docker.io/bitnami/minio
+          tag: 2025.9.30-debian-12-r0
         auth:
           rootUser: minio
           rootPassword: minio123

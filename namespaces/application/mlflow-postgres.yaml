@@ -11,12 +11,11 @@ spec:
   source:
     repoURL: https://charts.bitnami.com/bitnami
     chart: postgresql
-    targetRevision: 12.5.6
+    targetRevision: 14.0.2
     helm:
       valuesObject:
         image:
-          pullSecrets:
-            - name: dockerhub-secret
+          repository: docker.io/bitnami/postgresql
         auth:
           username: mlflow
           password: mlflowpass

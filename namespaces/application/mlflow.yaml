@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://community-charts.github.io/helm-charts
+    repoURL: https://github.com/argoproj/argocd-example-apps.git
     chart: mlflow
-    targetRevision: 1.6.2
+    targetRevision: HEAD
     helm:
       releaseName: mlflow
       valuesObject:
