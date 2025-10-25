@@ -2,34 +2,47 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: minio
-  namespace: infra-tools 
+  namespace: infra-tools
 spec:
-  destination:
-    namespace: infra-tools
-    server: https://kubernetes.default.svc
   project: default
   source:
     repoURL: https://charts.bitnami.com/bitnami
+    targetRevision: 14.10.2
     chart: minio
-    targetRevision: 13.7.2
     helm:
-      valuesObject:
+      values: |
+        mode: standalone
+        auth:
+          rootUser: minioadmin
+          rootPassword: minioadmin
         image:
           repository: docker.io/bitnami/minio
           tag: 2025.9.30-debian-12-r0
-        auth:
-          rootUser: minio
-          rootPassword: minio123
         defaultBuckets: "mlflow-artifacts"
-        service:
-          type: ClusterIP
         persistence:
-          enabled: false
+          enabled: true
+          size: 10Gi
+        extraArgs:
+          - server
+          - /data
+
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+ 
+  destination:
+    
+    server: https://kubernetes.default.svc 
+    
+    namespace: minio
+  
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=true
-      - ServerSideApply=true
-      - SkipDryRunOnMissingResource=true
+    - CreateNamespace=true
