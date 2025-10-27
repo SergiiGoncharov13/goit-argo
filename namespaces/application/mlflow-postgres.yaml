@@ -4,18 +4,13 @@ metadata:
   name: mlflow-postgres
   namespace: infra-tools
 spec:
-  destination:
-    namespace: infra-tools
-    server: https://kubernetes.default.svc
   project: default
   source:
-    repoURL: https://charts.bitnami.com/bitnami
+    repoURL: https://helm-charts.postgresql.org/
     chart: postgresql
-    targetRevision: 14.0.2
+    targetRevision: 12.2.2 
     helm:
-      valuesObject:
-        image:
-          repository: docker.io/bitnamilegacy/postgresql
+      values: |
         auth:
           username: mlflow
           password: mlflowpass
@@ -23,6 +18,16 @@ spec:
         primary:
           persistence:
             enabled: false
+        resources:
+          requests:
+            memory: 256Mi
+            cpu: 100m
+          limits:
+            memory: 512Mi
+            cpu: 300m
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: application
   syncPolicy:
     automated:
       prune: true

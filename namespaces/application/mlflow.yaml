@@ -6,49 +6,63 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/argoproj/argocd-example-apps.git
-    chart: mlflow
-    targetRevision: HEAD
+    repoURL: https://github.com/SergiiGoncharov13/mlflow-helm-chart.git
+    targetRevision: main
+    path: chart/mlflow
     helm:
       releaseName: mlflow
-      valuesObject:
+      values: |
         service:
           type: ClusterIP
           port: 5000
 
-
         auth:
           enabled: false
 
-
+        # Disable internal DB — we use external Postgres
         postgresql:
           enabled: false
 
-
         extraEnvVars:
-          AWS_ACCESS_KEY_ID: "minio"
-          AWS_SECRET_ACCESS_KEY: "minio123"
-          MLFLOW_S3_ENDPOINT_URL: "http://minio.application.svc.cluster.local:9000"
-          MLFLOW_BACKEND_STORE_URI: "postgresql://mlflow:mlflowpass@mlflow-postgres-postgresql.application.svc.cluster.local:5432/mlflow"
-          MLFLOW_ARTIFACT_ROOT: "s3://mlflow-artifacts"
-
+          - name: AWS_ACCESS_KEY_ID
+            value: minioadmin
+          - name: AWS_SECRET_ACCESS_KEY
+            value: minioadmin
+          - name: MLFLOW_S3_ENDPOINT_URL
+            value: http://minio.minio.svc.cluster.local:9000
+          - name: MLFLOW_BACKEND_STORE_URI
+            value: postgresql://mlflow:mlflowpass@mlflow-postgres.application.svc.cluster.local:5432/mlflow
+          - name: MLFLOW_ARTIFACT_ROOT
+            value: s3://mlflow-artifacts
 
         extraArgs:
-          backend-store-uri: "$(MLFLOW_BACKEND_STORE_URI)"
-          default-artifact-root: "$(MLFLOW_ARTIFACT_ROOT)"
-          host: "0.0.0.0"
-          port: "5000"
+          - "--backend-store-uri=$(MLFLOW_BACKEND_STORE_URI)"
+          - "--default-artifact-root=$(MLFLOW_ARTIFACT_ROOT)"
+          - "--host=0.0.0.0"
+          - "--port=5000"
 
+        image:
+          repository: ghcr.io/mlflow/mlflow
+          tag: 2.16.0
+          pullPolicy: IfNotPresent
+
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
 
   destination:
-    namespace: infra-tools
     server: https://kubernetes.default.svc
-
+    namespace: application
 
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
+      - CreateNamespace=true
       - ServerSideApply=true
       - SkipDryRunOnMissingResource=true
